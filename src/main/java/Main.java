@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Arrays;
 
 public class Main {
@@ -37,6 +38,48 @@ public class Main {
                     .filter(comment -> comment.postId == post.id)
                     .forEach(comment -> System.out.println("post " + comment.postId + " --> comment " + comment.id));
             System.out.println("----------------------");
+        }
+
+        File postsFile = new File("posts.txt");
+        try (FileOutputStream postsFileOutputStream = new FileOutputStream(postsFile)) {
+//            postsFileOutputStream.write(Arrays.toString(posts).getBytes());
+            for (Post post : posts) {
+                postsFileOutputStream.write(("-----post " + post.id + "----- \n").getBytes());
+                postsFileOutputStream.write(post.toString().getBytes());
+                postsFileOutputStream.write("\n".getBytes());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (FileInputStream postsFileInputStream = new FileInputStream("posts.txt")) {
+//            char read = (char) postsFileInputStream.read();
+//            System.out.println(read);
+            int i;
+            while ((i = postsFileInputStream.read()) != -1) {
+                System.out.print((char) i);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("*****************************");
+
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File("comments.txt")))){
+            for (Comment comment : comments) {
+                bufferedWriter.write("-----comment" + comment.id + "-----\n");
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("comments.txt"))){
+            String s;
+            while ((s=bufferedReader.readLine()) !=null) {
+                System.out.println(s);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
 //        for (Object o : postsInJSONArray) {
