@@ -3,6 +3,9 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
+        Post post1 = new Post(); /*lombok*/
+        Post buildedPost = Post.builder().body("aa").title("ss").build();  /*lombok*/
+
 
 //        URL url = new URL("https://jsonplaceholder.typicode.com/posts");
 //        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -100,4 +103,5 @@ public class Main {
 //        }
 //        System.out.println(Arrays.stream(posts).count());
     }
+
 }
